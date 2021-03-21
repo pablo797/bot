@@ -6,8 +6,7 @@ const { join } = require("path");
 
 client.commands= new Discord.Collection();
 
-const prefix = config.prefix;
-
+const prefix = config.prefix
 const commandFiles = readdirSync(join(__dirname, "commands")).filter(file => file.endsWith(".js"));
 
 for (const file of commandFiles) {
@@ -24,6 +23,8 @@ client.on("ready", () => {
 });
 client.on("message", async message => {
   
+  console.log(`(Server: ${message.guild}) (#${message.channel.name}) (User ID: ${message.author.id}) ${message.author.username}: ${message.content}`)
+  
   
   
     if(message.author.bot) return;
@@ -31,7 +32,7 @@ client.on("message", async message => {
 
 
     if(message.content.startsWith(prefix)) {
-        const args = message.content.slice(prefix.length).trim().split(/ +/);
+        const args = message.content.slice(config.prefix.length).trim().split(/ +/);
 
         const command = args.shift().toLowerCase();
 
@@ -46,4 +47,4 @@ client.on("message", async message => {
     }
 })
 
-client.login(config.token3)
+client.login(config.token)
